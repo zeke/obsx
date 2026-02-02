@@ -1,0 +1,16 @@
+{
+  "name": "obs-scripts",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "obs:add-webcam": "tsx obs-add-webcam.ts"
+  },
+  "dependencies": {
+    "obs-websocket-js": "^5.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30",
+    "tsx": "^4.19.1",
+    "typescript": "^5.4.2"
+  }
+}
