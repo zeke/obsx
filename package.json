@@ -13,12 +13,8 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "prepare": "npm run build",
-    "prepack": "npm run build",
     "dev": "tsx src/cli.ts",
-    "lint": "eslint .",
-    "obs:add-webcam": "tsx src/cli.ts add-webcam",
-    "obs:add-images": "tsx src/cli.ts add-images"
+    "lint": "eslint ."
   },
   "dependencies": {
     "obs-websocket-js": "^5.0.4"
