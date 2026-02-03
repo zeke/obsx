@@ -9,7 +9,7 @@ These scripts connect to OBS via the built-in obs-websocket server (protocol v5)
 - OBS: OBS 28+ (or obs-websocket 5.x installed)
 - WebSocket server: enabled in OBS
 - Host/port: `ws://localhost:4455`
-- Authentication: none by default (use `--password` / interactive mode if enabled in OBS)
+- Authentication: none by default (pass `--password` if enabled in OBS)
 
 In OBS, look for `Tools -> WebSocket Server Settings` (or similar) and set the port to `4455`.
 If you change the port/host or enable a password, update the scripts accordingly.
@@ -22,7 +22,7 @@ Add a webcam source to the current scene:
 ./script/add-webcam
 ```
 
-Interactive mode (hit enter to accept defaults):
+Interactive mode (hit enter to accept defaults). Uses the default `ws://localhost:4455` unless you pass `--url` / `--password`:
 
 ```sh
 ./script/add-webcam --interactive

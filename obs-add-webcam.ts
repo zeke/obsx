@@ -274,9 +274,6 @@ async function resolveOptionsInteractive(initial: Options): Promise<Options> {
 
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {
-    const url = await ask(rl, "OBS WebSocket URL", initial.url);
-    const passwordRaw = await ask(rl, "Password (leave blank for none)", initial.password ?? "");
-    const password = passwordRaw.trim().length ? passwordRaw : undefined;
     const baseName = await ask(rl, "Base source name", initial.baseName);
 
     const addChromaKey = await askYesNo(rl, "Add Chroma Key filter?", initial.addChromaKey);
@@ -297,8 +294,6 @@ async function resolveOptionsInteractive(initial: Options): Promise<Options> {
 
     return {
       ...initial,
-      url,
-      password,
       baseName,
       addChromaKey,
       addColorCorrection,
