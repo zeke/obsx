@@ -1,6 +1,6 @@
-# OBS Scripts
+# A CLI for OBS
 
-Small helpers for OBS via `obs-websocket-js`.
+Run as `obsx`. Built on `obs-websocket-js`.
 
 ## OBS WebSocket expectations
 
@@ -22,6 +22,12 @@ Add a webcam source to the current scene:
 ./script/add-webcam
 ```
 
+Or run from anywhere via `npx`:
+
+```sh
+npx zeke/obsx add-webcam
+```
+
 Interactive mode (hit enter to accept defaults). Uses the default `ws://localhost:4455` unless you pass `--url` / `--password`:
 
 ```sh
@@ -38,6 +44,19 @@ Add image sources for all images in the current directory (skips ones already in
 
 ```sh
 ./script/add-images
+```
+
+Or run from anywhere via `npx` (uses the images in your current directory):
+
+```sh
+npx zeke/obsx add-images
+```
+
+Or install globally from GitHub:
+
+```sh
+npm install -g zeke/obsx
+obsx add-images
 ```
 
 Or:
