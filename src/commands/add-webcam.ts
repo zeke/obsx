@@ -2,12 +2,10 @@ import { createInterface, type Interface } from "node:readline/promises";
 import process from "node:process";
 
 import type OBSWebSocket from "obs-websocket-js";
-import { DEFAULT_OBS_URL, withOBS } from "../lib/obs.js";
+import { getObsConnectionOptionsFromEnv, withOBS } from "../lib/obs.js";
 
 type Options = {
   interactive: boolean;
-  url: string;
-  password?: string;
   baseName: string;
   inputKind?: string;
   deviceSelection?: string;
@@ -19,8 +17,6 @@ type Options = {
 
 const DEFAULTS: Options = {
   interactive: false,
-  url: DEFAULT_OBS_URL,
-  password: undefined,
   baseName: "Video Capture Device",
   inputKind: undefined,
   deviceSelection: undefined,
@@ -49,18 +45,6 @@ function parseArgs(argv: string[]): Partial<Options> {
 
     if (arg === "-i" || arg === "--interactive") {
       out.interactive = true;
-      continue;
-    }
-
-    if (arg === "--url" && typeof next === "string") {
-      out.url = next;
-      i += 1;
-      continue;
-    }
-
-    if (arg === "--password" && typeof next === "string") {
-      out.password = next;
-      i += 1;
       continue;
     }
 
@@ -308,7 +292,7 @@ export async function addWebcam(argv: string[]): Promise<void> {
     throw new Error(`Invalid --contrast: ${options.contrast}`);
   }
 
-  await withOBS({ url: options.url, password: options.password }, async (obs) => {
+  await withOBS(getObsConnectionOptionsFromEnv(), async (obs) => {
     const currentScene = await obs.call("GetCurrentProgramScene");
     const sceneName = currentScene.currentProgramSceneName;
 

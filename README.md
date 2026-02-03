@@ -24,10 +24,16 @@ This CLI connects to OBS via the built-in obs-websocket server (protocol v5).
 - OBS: OBS 28+ (or obs-websocket 5.x installed)
 - WebSocket server: enabled in OBS
 - Default URL: `ws://localhost:4455`
-- Authentication: none by default (pass `--password` if enabled in OBS)
+- Authentication: none by default
 
 In OBS, look for `Tools -> WebSocket Server Settings` (or similar) and set the port to `4455`.
-If you change the host/port, pass `--url`. If you enable a password, pass `--password`.
+
+Connection config is optional; by default it uses `ws://localhost:4455` with no password.
+
+To override, set environment variables:
+
+- `OBSX_URL` (default: `ws://localhost:4455`)
+- `OBSX_PASSWORD` (optional)
 
 Add a webcam source to the current scene:
 
@@ -41,7 +47,7 @@ Or without installing:
 npx zeke/obsx add-webcam
 ```
 
-Interactive mode (hit enter to accept defaults). Uses the default `ws://localhost:4455` unless you pass `--url` / `--password`:
+Interactive mode (hit enter to accept defaults):
 
 ```sh
 obsx add-webcam --interactive

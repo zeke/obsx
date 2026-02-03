@@ -4,11 +4,9 @@ import * as path from "node:path";
 import process from "node:process";
 
 import type OBSWebSocket from "obs-websocket-js";
-import { DEFAULT_OBS_URL, withOBS } from "../lib/obs.js";
+import { getObsConnectionOptionsFromEnv, withOBS } from "../lib/obs.js";
 
 type Options = {
-  url: string;
-  password?: string;
   scene?: string;
   dir: string;
 };
@@ -31,18 +29,6 @@ function parseArgs(argv: string[]): Partial<Options> {
     const arg = argv[i] ?? "";
     const next = argv[i + 1];
 
-    if (arg === "--url" && typeof next === "string") {
-      out.url = next;
-      i += 1;
-      continue;
-    }
-
-    if (arg === "--password" && typeof next === "string") {
-      out.password = next;
-      i += 1;
-      continue;
-    }
-
     if (arg === "--scene" && typeof next === "string") {
       out.scene = next;
       i += 1;
@@ -61,8 +47,6 @@ function parseArgs(argv: string[]): Partial<Options> {
 
 function mergeOptions(overrides: Partial<Options>, cwd: string): Options {
   return {
-    url: overrides.url ?? DEFAULT_OBS_URL,
-    password: overrides.password,
     scene: overrides.scene,
     dir: overrides.dir ?? cwd,
   };
@@ -173,7 +157,7 @@ export async function addImages(argv: string[], cwd = process.cwd()): Promise<vo
     return;
   }
 
-  await withOBS({ url: options.url, password: options.password }, async (obs) => {
+  await withOBS(getObsConnectionOptionsFromEnv(), async (obs) => {
     const currentScene = await obs.call("GetCurrentProgramScene");
     const sceneName = options.scene ?? currentScene.currentProgramSceneName;
 

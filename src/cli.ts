@@ -12,6 +12,10 @@ function printHelp(): void {
 Usage:
   obsx <command> [options]
 
+Environment:
+  OBSX_URL       OBS websocket URL (default: ws://localhost:4455)
+  OBSX_PASSWORD  OBS websocket password (optional)
+
 Commands:
   add-images   Add image sources for images in a directory (default: cwd)
   add-webcam   Add a webcam input to the current scene
