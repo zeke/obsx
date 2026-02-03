@@ -1,28 +1,41 @@
-# A CLI for OBS
+# obsx
 
-Run as `obsx`. Built on `obs-websocket-js`.
+A CLI for [OBS](https://obsproject.com/).
 
-## OBS WebSocket expectations
+## Install
 
-These scripts connect to OBS via the built-in obs-websocket server (protocol v5).
+Run without installing:
+
+```sh
+npx zeke/obsx <command>
+```
+
+Install globally:
+
+```sh
+npm install -g zeke/obsx
+obsx <command>
+```
+
+## Usage
+
+This CLI connects to OBS via the built-in obs-websocket server (protocol v5).
 
 - OBS: OBS 28+ (or obs-websocket 5.x installed)
 - WebSocket server: enabled in OBS
-- Host/port: `ws://localhost:4455`
+- Default URL: `ws://localhost:4455`
 - Authentication: none by default (pass `--password` if enabled in OBS)
 
 In OBS, look for `Tools -> WebSocket Server Settings` (or similar) and set the port to `4455`.
-If you change the port/host or enable a password, update the scripts accordingly.
-
-## Commands
+If you change the host/port, pass `--url`. If you enable a password, pass `--password`.
 
 Add a webcam source to the current scene:
 
 ```sh
-./script/add-webcam
+obsx add-webcam
 ```
 
-Or run from anywhere via `npx`:
+Or without installing:
 
 ```sh
 npx zeke/obsx add-webcam
@@ -31,36 +44,17 @@ npx zeke/obsx add-webcam
 Interactive mode (hit enter to accept defaults). Uses the default `ws://localhost:4455` unless you pass `--url` / `--password`:
 
 ```sh
-./script/add-webcam --interactive
-```
-
-Or:
-
-```sh
-npm run obs:add-webcam
+obsx add-webcam --interactive
 ```
 
 Add image sources for all images in the current directory (skips ones already in the scene):
 
 ```sh
-./script/add-images
-```
-
-Or run from anywhere via `npx` (uses the images in your current directory):
-
-```sh
-npx zeke/obsx add-images
-```
-
-Or install globally from GitHub:
-
-```sh
-npm install -g zeke/obsx
 obsx add-images
 ```
 
-Or:
+Use a specific directory:
 
 ```sh
-npm run obs:add-images -- --dir "$PWD"
+obsx add-images --dir "$PWD"
 ```
