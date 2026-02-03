@@ -3,7 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "obs:add-webcam": "tsx obs-add-webcam.ts"
+    "obs:add-webcam": "tsx obs-add-webcam.ts",
+    "obs:add-images": "tsx obs-add-images.ts"
   },
   "dependencies": {
     "obs-websocket-js": "^5.0.4"

@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CALLER_DIR="$PWD"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$ROOT_DIR"
+
+npm run -s obs:add-images -- --dir "$CALLER_DIR" "$@"
