@@ -3,7 +3,7 @@
 This repo is "A CLI for OBS" (command: `obsx`).
 
 - Build: `npm run build`
-- Lint: `./script/lint`
+- Lint: `npm run lint`
 - Run from repo: `npm run dev -- <command>`
 - Run from anywhere: `npx zeke/obsx <command>`
 
