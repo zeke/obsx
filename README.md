@@ -7,13 +7,13 @@ A CLI for [OBS](https://obsproject.com/).
 Run without installing:
 
 ```sh
-npx @zeke/obsx <command>
+npx obsx <command>
 ```
 
 Install globally:
 
 ```sh
-npm install -g @zeke/obsx
+npm install -g obsx
 obsx <command>
 ```
 
@@ -44,7 +44,7 @@ obsx add-webcam
 Or without installing:
 
 ```sh
-npx @zeke/obsx add-webcam
+npx obsx add-webcam
 ```
 
 Interactive mode (hit enter to accept defaults):
