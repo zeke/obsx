@@ -21,9 +21,9 @@ Commands:
   add-webcam   Add a webcam input to the current scene
 
 Examples:
-  npx obsx add-images
-  npx obsx add-images --dir /path/to/images
-  npx obsx add-webcam --interactive
+  obsx add-images
+  obsx add-images --dir /path/to/images
+  obsx add-webcam --interactive
 `);
 }
 

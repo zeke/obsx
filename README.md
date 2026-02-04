@@ -7,13 +7,13 @@ A CLI for [OBS](https://obsproject.com/).
 Run without installing:
 
 ```sh
-npx obsx <command>
+npx @zeke/obsx <command>
 ```
 
 Install globally:
 
 ```sh
-npm install -g obsx
+npm install -g @zeke/obsx
 obsx <command>
 ```
 
