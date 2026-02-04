@@ -1,8 +1,9 @@
 {
-  "name": "obsx",
+  "name": "@zeke/obsx",
   "description": "A CLI for OBS",
   "version": "0.1.0",
-  "license": "UNLICENSED",
+  "license": "MIT",
+  "repository": "https://github.com/zeke/obsx",
   "type": "module",
   "bin": {
     "obsx": "./bin/obsx.js"
@@ -13,9 +14,12 @@
   ],
   "scripts": {
     "build": "node ./node_modules/typescript/bin/tsc -p tsconfig.json",
-    "prepare": "npm run build",
+    "prepack": "npm run build",
     "dev": "tsx src/cli.ts",
     "lint": "eslint ."
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "obs-websocket-js": "^5.0.4"
