@@ -16,7 +16,8 @@
     "build": "node ./node_modules/typescript/bin/tsc -p tsconfig.json",
     "prepack": "npm run build",
     "dev": "tsx src/cli.ts",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "echo yolo-no-tests-yet"
   },
   "publishConfig": {
     "access": "public"
