@@ -51,7 +51,8 @@ Rules:
 - Use the current OBS state provided to reference correct scene names, input names, and scene item IDs.
 - If you need to get information first (like a sceneItemId), you cannot do that in this single response. Use the state provided.
 - Be practical: if asked to "hide" something, use SetSceneItemEnabled with false. If asked to "show", use true.
-- For positioning, the canvas origin (0,0) is top-left.`;
+- For positioning, the canvas origin (0,0) is top-left.
+- When creating new sources with CreateInput, the inputName MUST NOT conflict with any existing input name in OBS — not just in the current scene, but across ALL scenes. Check the provided Inputs list and all scene item lists carefully before choosing a name. If there is a conflict, append a suffix like "-2", "-3", etc.`;
 
 async function gatherObsState(obs: OBSWebSocket): Promise<string> {
   const parts: string[] = [];
@@ -74,16 +75,16 @@ async function gatherObsState(obs: OBSWebSocket): Promise<string> {
     const scenes = await obs.call("GetSceneList");
     parts.push(`Current scene: ${scenes.currentProgramSceneName}`);
     parts.push(`Scenes: ${JSON.stringify(scenes.scenes)}`);
-  } catch {
-    // ignore
-  }
 
-  try {
-    const current = await obs.call("GetCurrentProgramScene");
-    const items = await obs.call("GetSceneItemList", {
-      sceneName: current.currentProgramSceneName,
-    });
-    parts.push(`Scene items in "${current.currentProgramSceneName}": ${JSON.stringify(items.sceneItems)}`);
+    for (const scene of scenes.scenes) {
+      const name = scene.sceneName as string;
+      try {
+        const items = await obs.call("GetSceneItemList", { sceneName: name });
+        parts.push(`Scene items in "${name}": ${JSON.stringify(items.sceneItems)}`);
+      } catch {
+        // ignore individual scene errors
+      }
+    }
   } catch {
     // ignore
   }
