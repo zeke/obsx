@@ -3,8 +3,9 @@ import process from "node:process";
 
 import { addImages } from "./commands/add-images.js";
 import { addWebcam } from "./commands/add-webcam.js";
+import { yolo } from "./commands/yolo.js";
 
-type Command = "add-images" | "add-webcam";
+type Command = "add-images" | "add-webcam" | "yolo";
 
 function printHelp(): void {
   console.log(`obsx - A CLI for OBS
@@ -19,11 +20,13 @@ Environment:
 Commands:
   add-images   Add image sources for images in a directory (default: cwd)
   add-webcam   Add a webcam input to the current scene
+  yolo         Use AI to control OBS with natural language
 
 Examples:
   obsx add-images
   obsx add-images --dir /path/to/images
   obsx add-webcam --interactive
+  obsx yolo "switch to the Gaming scene"
 `);
 }
 
@@ -43,6 +46,11 @@ async function run(argv: string[]): Promise<void> {
 
   if (command === "add-webcam") {
     await addWebcam(rest);
+    return;
+  }
+
+  if (command === "yolo") {
+    await yolo(rest);
     return;
   }
 

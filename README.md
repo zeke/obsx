@@ -64,3 +64,37 @@ Use a specific directory:
 ```sh
 obsx add-images --dir "$PWD"
 ```
+
+## yolo
+
+Use natural language to control OBS. This sends your prompt to Claude along with the current state of your OBS instance, and executes the generated commands.
+
+Requires the `ANTHROPIC_API_KEY` environment variable.
+
+```sh
+obsx yolo "start recording"
+obsx yolo "switch to the BRB scene"
+obsx yolo "hide the webcam"
+obsx yolo "add a color source called 'Red Background' to the current scene"
+obsx yolo "mute the mic"
+obsx yolo "set the transition to fade and make it 500ms"
+obsx yolo "move the webcam to the bottom right corner"
+obsx yolo "take a screenshot of the current scene"
+obsx yolo "create a new scene called Interview with two color sources side by side"
+```
+
+## Development
+
+Run locally from the repo without publishing:
+
+```sh
+npm run dev -- <command>
+```
+
+For example:
+
+```sh
+npm run dev -- add-webcam
+npm run dev -- add-webcam --device iphone
+npm run dev -- add-images
+```

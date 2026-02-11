@@ -7,6 +7,7 @@ import { getObsConnectionOptionsFromEnv, withOBS } from "../lib/obs.js";
 type Options = {
   interactive: boolean;
   baseName: string;
+  baseNameExplicit: boolean;
   inputKind?: string;
   deviceSelection?: string;
   addChromaKey: boolean;
@@ -18,6 +19,7 @@ type Options = {
 const DEFAULTS: Options = {
   interactive: false,
   baseName: "Video Capture Device",
+  baseNameExplicit: false,
   inputKind: undefined,
   deviceSelection: undefined,
   addChromaKey: true,
@@ -50,6 +52,7 @@ function parseArgs(argv: string[]): Partial<Options> {
 
     if (arg === "--base-name" && typeof next === "string") {
       out.baseName = next;
+      out.baseNameExplicit = true;
       i += 1;
       continue;
     }
@@ -246,6 +249,7 @@ async function resolveOptionsInteractive(initial: Options): Promise<Options> {
   const rl = createInterface({ input: process.stdin, output: process.stdout });
   try {
     const baseName = await ask(rl, "Base source name", initial.baseName);
+    const baseNameExplicit = baseName !== initial.baseName;
 
     const addChromaKey = await askYesNo(rl, "Add Chroma Key filter?", initial.addChromaKey);
     const addColorCorrection = await askYesNo(
@@ -266,6 +270,7 @@ async function resolveOptionsInteractive(initial: Options): Promise<Options> {
     return {
       ...initial,
       baseName,
+      baseNameExplicit: initial.baseNameExplicit || baseNameExplicit,
       addChromaKey,
       addColorCorrection,
       saturation,
@@ -385,9 +390,23 @@ export async function addWebcam(argv: string[]): Promise<void> {
       overlay: true,
     });
 
+    // Rename the source based on the device name, unless the user
+    // explicitly provided --base-name.
+    let finalName = inputName;
+    if (!options.baseNameExplicit && device.itemName) {
+      const desiredName = await uniqueInputName(obs, device.itemName);
+      if (desiredName !== inputName) {
+        await obs.call("SetInputName", {
+          inputName,
+          newInputName: desiredName,
+        });
+        finalName = desiredName;
+      }
+    }
+
     if (options.addChromaKey) {
       await obs.call("CreateSourceFilter", {
-        sourceName: inputName,
+        sourceName: finalName,
         filterName: "Chroma Key",
         filterKind: "chroma_key_filter",
         filterSettings: {},
@@ -396,7 +415,7 @@ export async function addWebcam(argv: string[]): Promise<void> {
 
     if (options.addColorCorrection) {
       await obs.call("CreateSourceFilter", {
-        sourceName: inputName,
+        sourceName: finalName,
         filterName: "Color Correction",
         filterKind: "color_filter",
         filterSettings: {
@@ -407,7 +426,7 @@ export async function addWebcam(argv: string[]): Promise<void> {
     }
 
     const filters = await obs.call("GetSourceFilterList", {
-      sourceName: inputName,
+      sourceName: finalName,
     });
     const filterSummaries = filters.filters.map((filter) => ({
       name: filter.filterName,
@@ -416,7 +435,7 @@ export async function addWebcam(argv: string[]): Promise<void> {
     }));
     console.log("Filters:", filterSummaries);
 
-    console.log("Created input:", inputName);
+    console.log("Created input:", finalName);
     console.log("Scene:", sceneName);
     console.log("Input kind:", inputKind);
     console.log("Device:", device.itemName);
