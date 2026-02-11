@@ -1,9 +1,13 @@
 #!/usr/bin/env node
+import { createRequire } from "node:module";
 import process from "node:process";
 
 import { addImages } from "./commands/add-images.js";
 import { addWebcam } from "./commands/add-webcam.js";
 import { yolo } from "./commands/yolo.js";
+
+const require = createRequire(import.meta.url);
+const { version } = require("../package.json") as { version: string };
 
 type Command = "add-images" | "add-webcam" | "yolo";
 
@@ -32,6 +36,11 @@ Examples:
 
 async function run(argv: string[]): Promise<void> {
   const [maybeCommand, ...rest] = argv;
+
+  if (maybeCommand === "-v" || maybeCommand === "--version") {
+    console.log(version);
+    return;
+  }
 
   if (!maybeCommand || maybeCommand === "-h" || maybeCommand === "--help") {
     printHelp();
