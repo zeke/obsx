@@ -64,3 +64,19 @@ Use a specific directory:
 ```sh
 obsx add-images --dir "$PWD"
 ```
+
+## Development
+
+Run locally from the repo without publishing:
+
+```sh
+npm run dev -- <command>
+```
+
+For example:
+
+```sh
+npm run dev -- add-webcam
+npm run dev -- add-webcam --device iphone
+npm run dev -- add-images
+```
