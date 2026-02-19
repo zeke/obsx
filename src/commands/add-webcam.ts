@@ -38,7 +38,7 @@ const INPUT_KIND_PREFERENCE = [
   "video_capture_device",
 ];
 
-function parseArgs(argv: string[]): Partial<Options> {
+export function parseArgs(argv: string[]): Partial<Options> {
   const out: Partial<Options> = {};
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -95,7 +95,7 @@ function parseArgs(argv: string[]): Partial<Options> {
   return out;
 }
 
-function mergeOptions(overrides: Partial<Options>): Options {
+export function mergeOptions(overrides: Partial<Options>): Options {
   return {
     ...DEFAULTS,
     ...overrides,
@@ -121,7 +121,7 @@ async function askYesNo(
   return defaultValue;
 }
 
-function pickDefaultIndexFromNeedles(labels: string[], needles: string[]): number {
+export function pickDefaultIndexFromNeedles(labels: string[], needles: string[]): number {
   for (const needle of needles) {
     const idx = labels.findIndex((l) => l.toLowerCase().includes(needle));
     if (idx !== -1) return idx;
@@ -233,7 +233,7 @@ function pickDeviceDefaultIndex(choices: DeviceChoice[]): number {
   return pickDefaultIndexFromNeedles(labels, DEVICE_PRIORITY);
 }
 
-function findDeviceIndexBySelection(choices: DeviceChoice[], selection: string): number {
+export function findDeviceIndexBySelection(choices: DeviceChoice[], selection: string): number {
   const needle = selection.trim().toLowerCase();
   if (!needle) return -1;
   return choices.findIndex((c) =>

@@ -11,7 +11,7 @@ type Options = {
   dir: string;
 };
 
-const IMAGE_EXTS = new Set([
+export const IMAGE_EXTS = new Set([
   ".png",
   ".jpg",
   ".jpeg",
@@ -22,7 +22,7 @@ const IMAGE_EXTS = new Set([
   ".webp",
 ]);
 
-function parseArgs(argv: string[]): Partial<Options> {
+export function parseArgs(argv: string[]): Partial<Options> {
   const out: Partial<Options> = {};
 
   for (let i = 0; i < argv.length; i += 1) {
@@ -45,19 +45,19 @@ function parseArgs(argv: string[]): Partial<Options> {
   return out;
 }
 
-function mergeOptions(overrides: Partial<Options>, cwd: string): Options {
+export function mergeOptions(overrides: Partial<Options>, cwd: string): Options {
   return {
     scene: overrides.scene,
     dir: overrides.dir ?? cwd,
   };
 }
 
-function expandHome(p: string): string {
+export function expandHome(p: string): string {
   if (!p.startsWith("~/")) return p;
   return path.join(os.homedir(), p.slice(2));
 }
 
-function normalizeFilePath(p: string): string {
+export function normalizeFilePath(p: string): string {
   const expanded = expandHome(p);
   const resolved = path.resolve(expanded);
   try {
@@ -67,7 +67,7 @@ function normalizeFilePath(p: string): string {
   }
 }
 
-function listImagesInDir(dir: string): { fileName: string; filePath: string }[] {
+export function listImagesInDir(dir: string): { fileName: string; filePath: string }[] {
   const entries = fs.readdirSync(dir, { withFileTypes: true });
   return entries
     .filter((e) => e.isFile())
@@ -135,7 +135,7 @@ type SceneItemTransform = {
   boundsHeight: number;
 };
 
-function computeFitTransform(canvasW: number, canvasH: number): SceneItemTransform {
+export function computeFitTransform(canvasW: number, canvasH: number): SceneItemTransform {
   return {
     positionX: canvasW / 2,
     positionY: canvasH / 2,
