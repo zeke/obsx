@@ -113,7 +113,7 @@ async function gatherObsState(obs: OBSWebSocket): Promise<string> {
   return parts.join("\n");
 }
 
-function parseCallsFromResponse(text: string): ObsCall[] {
+export function parseCallsFromResponse(text: string): ObsCall[] {
   // Strip markdown fences if the model wrapped the response
   let cleaned = text.trim();
   if (cleaned.startsWith("```")) {

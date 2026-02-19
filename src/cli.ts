@@ -15,7 +15,8 @@ function printHelp(): void {
   console.log(`obsx - A CLI for OBS
 
 Usage:
-  obsx <command> [options]
+  obsx <prompt>              AI-control OBS with natural language
+  obsx <command> [options]   Run a specific command
 
 Environment:
   OBSX_URL       OBS websocket URL (default: ws://localhost:4455)
@@ -27,10 +28,11 @@ Commands:
   yolo         Use AI to control OBS with natural language
 
 Examples:
+  obsx "switch to the Gaming scene"
+  obsx "hide the webcam and start recording"
   obsx add-images
   obsx add-images --dir /path/to/images
   obsx add-webcam --interactive
-  obsx yolo "switch to the Gaming scene"
 `);
 }
 
@@ -63,9 +65,9 @@ async function run(argv: string[]): Promise<void> {
     return;
   }
 
-  console.error(`Unknown command: ${maybeCommand}`);
-  printHelp();
-  process.exitCode = 1;
+  // Treat unrecognized commands as yolo prompts,
+  // so `obsx "do something"` works like `obsx yolo "do something"`
+  await yolo(argv);
 }
 
 run(process.argv.slice(2)).catch((err) => {
