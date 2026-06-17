@@ -14,13 +14,9 @@
   ],
   "scripts": {
     "build": "node ./node_modules/typescript/bin/tsc -p tsconfig.json",
-    "prepublishOnly": "npm run build",
     "dev": "tsx src/cli.ts",
     "lint": "eslint .",
     "test": "vitest run"
-  },
-  "publishConfig": {
-    "access": "public"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.74.0",
