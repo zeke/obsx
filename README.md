@@ -4,16 +4,10 @@ A CLI for [OBS](https://obsproject.com/).
 
 ## Install
 
-Run without installing:
-
-```sh
-npx zeke/obsx <command>
-```
-
 Install globally:
 
 ```sh
-npm install -g zeke/obsx
+npm install -g https://github.com/zeke/obsx/archive/refs/tags/v1.2.2.tar.gz
 obsx <command>
 ```
 
@@ -44,7 +38,7 @@ obsx add-webcam
 Or without installing:
 
 ```sh
-npx zeke/obsx add-webcam
+npx https://github.com/zeke/obsx/archive/refs/tags/v1.2.2.tar.gz add-webcam
 ```
 
 Interactive mode (hit enter to accept defaults):
