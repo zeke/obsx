@@ -1,5 +1,5 @@
 {
-  "name": "@zeke/obsx",
+  "name": "obsx",
   "description": "A CLI for OBS",
   "version": "1.2.1",
   "license": "MIT",
