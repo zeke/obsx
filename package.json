@@ -1,7 +1,7 @@
 {
   "name": "obsx",
   "description": "A CLI for OBS",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "license": "MIT",
   "repository": "https://github.com/zeke/obsx",
   "type": "module",
