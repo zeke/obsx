@@ -79,6 +79,11 @@ obsx "create a new scene called Interview with two color sources side by side"
 
 Any text that isn't a recognized command is treated as an AI prompt, so `obsx yolo "..."` also works.
 
+## Related projects
+
+- [obs-skill](https://github.com/zeke/obs-skill) - An agent skill for controlling OBS with natural language. Use this when you want a coding agent to drive OBS directly, rather than a CLI you run yourself.
+- [obs-mcp](https://github.com/zeke/obs-mcp) - An MCP server for OBS.
+
 ## Development
 
 Run locally from the repo without publishing:
